@@ -133,7 +133,18 @@ SELECT *
 FROM Students
 ORDER BY Name;
 
+--Trigger Added
+CREATE OR REPLACE TRIGGER trg_set_year_of_joining
+BEFORE INSERT ON Students
+FOR EACH ROW
+BEGIN
+  :NEW.YearOfJoining := EXTRACT(YEAR FROM SYSDATE);
+END;
+/
 
+INSERT INTO Students (StudentID, Name, Email, Phone, DOB)VALUES (9, 'Kamini', 'Kamini@example.com', '9999999999', TO_DATE('2000-02-15', 'YYYY-MM-DD'));
+
+select * from Students;
 
 
 
