@@ -94,5 +94,48 @@ INSERT INTO Enrollments (EnrollmentID, StudentID, CourseID, JoiningDate) VALUES 
 
 
 
---Created By Raju And Vaishnavi-
+
 SELECT * FROM Enrollments;
+
+
+--View Concept
+
+CREATE VIEW StudentEnrollments AS
+SELECT 
+    s.StudentID,
+    s.Name AS StudentName, 
+    c.CourseName AS CourseName,
+    e.JoiningDate
+FROM 
+    Enrollments e
+JOIN 
+    Students s ON e.StudentID = s.StudentID
+JOIN 
+    Courses c ON e.CourseID = c.CourseID;
+    
+    
+UPDATE StudentEnrollments
+SET CourseName = 'Advanced DSA'
+WHERE StudentName = 'Vaishnavi' AND CourseName = 'DSA';
+
+SELECT * FROM StudentEnrollments;
+
+--Index Concept
+
+CREATE INDEX idx_student_name ON Students(Name);
+
+SELECT *
+FROM Students
+WHERE Name = 'Vaishnavi';
+
+
+SELECT *
+FROM Students
+ORDER BY Name;
+
+
+
+
+
+
+
