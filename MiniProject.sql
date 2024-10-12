@@ -147,6 +147,27 @@ INSERT INTO Students (StudentID, Name, Email, Phone, DOB)VALUES (9, 'Kamini', 'K
 select * from Students;
 
 
+--Cursor Concept Added
+UPDATE Students SET YearOfJoining = EXTRACT(YEAR FROM SYSDATE);
+DECLARE
+    CURSOR cur_students IS
+        SELECT StudentID FROM Students;  -- Declare a cursor to fetch StudentID
+    v_student_id Students.StudentID%TYPE;  -- Variable to hold the StudentID
+BEGIN
+    OPEN cur_students;  -- Open the cursor
+    LOOP
+        FETCH cur_students INTO v_student_id;  -- Fetch the next StudentID
+        EXIT WHEN cur_students%NOTFOUND;  -- Exit loop when no more rows are found
+
+        -- Process each student ID: print it to the output
+        DBMS_OUTPUT.PUT_LINE('Student ID: ' || v_student_id);  -- Output the StudentID
+    END LOOP;
+    CLOSE cur_students;  -- Close the cursor
+END;
+/
+
+
+SET SERVEROUTPUT ON;
 
 
 
